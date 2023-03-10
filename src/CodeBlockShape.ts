@@ -24,7 +24,7 @@ class CodeBlockShape {
 			let codeTextLines = codeText.split('\n')
 
 			// 獲取 代碼塊所需高度
-			let blockHeight = myUtils.getTextHeight(codeDataFunc.code) + 20;
+			let blockHeight = myUtils.getTextHeight(codeDataFunc.code) + 30;
 
 			// 計算代碼塊所需寬度
 			let blockWidth = 0

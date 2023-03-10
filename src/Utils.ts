@@ -25,6 +25,7 @@ class Utils {
 	 * 計算字串寬度
 	 */
 	tCanvas: any = null;
+
 	public getTextWidth(text: string, font: string) {
 		// re-use canvas object for better performance
 		const canvas = this.tCanvas || (this.tCanvas = document.createElement('canvas'));
@@ -186,4 +187,6 @@ class Utils {
 }
 
 
-export {Utils, CodeData, CodeDataFunc}
+export {Utils};
+export type {CodeData, CodeDataFunc};
+
