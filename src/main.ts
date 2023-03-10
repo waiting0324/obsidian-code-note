@@ -20,7 +20,7 @@ export default class SourceCodeViewPlugin extends Plugin {
 		);
 
 		// 註冊 Obsidian 左側的按鈕
-		this.addRibbonIcon("dice", "Activate view", () => {
+		this.addRibbonIcon("file-json", "Show Resource Code View", () => {
 			this.initView()
 		});
 	}

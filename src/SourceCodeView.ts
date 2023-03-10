@@ -1,9 +1,10 @@
-import {ItemView, View, WorkspaceLeaf} from "obsidian";
+import {ItemView, WorkspaceLeaf} from "obsidian";
 import {initGraph} from "./Graph";
 import {SOURCE_CODE_VIEW_TYPE} from "./main";
 
 export default class SourceCodeView extends ItemView {
 
+	// 代碼塊內容 集合
 	codeBlocks: string[]
 
 	constructor(codeBlocks: string[], leaf: WorkspaceLeaf) {
@@ -12,7 +13,7 @@ export default class SourceCodeView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return "MySourceCodeView";
+		return "Source Code View";
 	}
 
 	getViewType(): string {
@@ -20,12 +21,17 @@ export default class SourceCodeView extends ItemView {
 	}
 
 	async onOpen() {
+
+		// 清空 容器內容
 		const container = this.containerEl.children[1];
 		container.empty();
+
+		// 創建 AntV 需要的容器
 		const div = document.createElement("div")
 		div.id = 'container';
-		this.containerEl.children[1].appendChild(div);
+		container.appendChild(div);
 
+		// 初始化 AntV 的 畫布
 		initGraph(this.codeBlocks);
 	}
 
