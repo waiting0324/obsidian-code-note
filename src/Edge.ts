@@ -1,7 +1,7 @@
 import { Shape } from '@antv/x6';
-import { CodeData, utils } from './utils'
+import { CodeData, Utils } from './Utils'
 
-const myUtils = new utils()
+const myUtils = new Utils()
 
 class Edge {
 

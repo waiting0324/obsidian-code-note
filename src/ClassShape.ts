@@ -1,7 +1,7 @@
 import { Graph } from '@antv/x6';
-import { utils } from './utils'
+import { Utils } from './Utils'
 
-const myUtils = new utils()
+const myUtils = new Utils()
 
 /**
  * 註冊 類聲明 中 方法名稱位置 計算函數

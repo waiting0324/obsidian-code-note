@@ -1,92 +1,15 @@
 import {Cell, Graph, Shape} from '@antv/x6';
-import {CodeBlockShape} from './codeBlockShape';
-import {ClassShape} from './classShape';
-import {CLASS_SHAPE_ID_TAG, CODE_BLOCK_ID_TAG, CodeData, utils} from './utils';
-import {Edge} from './edge'
+import {CodeBlockShape} from './CodeBlockShape';
+import {ClassShape} from './ClassShape';
+import {CLASS_SHAPE_ID_TAG, CODE_BLOCK_ID_TAG, CodeData, Utils} from './Utils';
+import {Edge} from './Edge'
 
-let codeBlocks = [`
-    /**
-     * listen plugin handler event and handle plugin.
-     * @class ShenyuWebHandler
-     * @function onApplicationEvent(final PluginHandlerEvent event)
-     * @param event sort plugin event
-     */
-    @Override
-    public void onApplicationEvent(final PluginHandlerEvent event) {
-        PluginHandlerEventEnum stateEnums = event.getPluginStateEnums();
-        PluginData pluginData = (PluginData) event.getSource();
-        switch (stateEnums) {
-            case ENABLED:
-                onPluginEnabled(pluginData);
-                break;
-            case DELETE:
-            case DISABLED:
-                // disable or removed plugin.
-                onPluginRemoved(pluginData);
-                break;
-            case SORTED:
-                // copy a new one, or there will be concurrency problems
-                onSortedPlugins();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + event.getPluginStateEnums());
-        }
-        onSortedPlugins();
-    }
-    `,
-    `
-    /**
-     * handler error.
-     *
-     * @class ShenyuWebHandler
-     * @function handle(@NonNull final ServerWebExchange exchange, @NonNull final Throwable throwable)
-     * @call ShenyuPluginLoader @ getInstance()
-     * 
-     * @param exchange  the exchange
-     * @param throwable the throwable
-     * @return error result
-     */
-    @Override
-    @NonNull
-    public Mono<Void> handle(@NonNull final ServerWebExchange exchange, @NonNull final Throwable throwable) {
-        LOG.error("handle error: {}{}", exchange.getLogPrefix(), formatError(throwable, exchange.getRequest()), throwable);
-        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        if (throwable instanceof ResponseStatusException) {
-            httpStatus = ((ResponseStatusException) throwable).getStatus();
-        }
-        exchange.getResponse().setStatusCode(httpStatus);
-        Object error = ShenyuResultWrap.error(exchange, httpStatus.value(), httpStatus.getReasonPhrase(), throwable);
-        return WebFluxResultUtils.result(exchange, error);
-    }
-    `,
-    `
-    /**
-     * Get plugin loader instance.
-     * 
-     * @class ShenyuPluginLoader 
-     * @function getInstance()
-     * 
-     * @return plugin loader instance
-     */
-    public static ShenyuPluginLoader getInstance() {
-        if (null == pluginLoader) {
-            synchronized (ShenyuPluginLoader.class) {
-                if (null == pluginLoader) {
-                    pluginLoader = new ShenyuPluginLoader();
-                }
-            }
-        }
-        return pluginLoader;
-    }
-    `]
-
-const myUtils = new utils()
+const myUtils = new Utils()
 const codeBlockShape = new CodeBlockShape()
 const classShape = new ClassShape()
 const edge = new Edge()
 
-// window.onload = function () {
-export let indexInit = function (codeBlocks: String[]) {
+export let initGraph = function (codeBlocks: String[]) {
 
     // 創建畫布
     const graph = new Graph({
@@ -131,9 +54,6 @@ export let indexInit = function (codeBlocks: String[]) {
 
     // 綁定 開啟/關閉 代碼塊圖形 事件
     graph.on('toggle:codeBlock', ({e, node}) => {
-
-		console.dir(e)
-		console.dir(node)
 
         // 獲取 代碼塊圖形、開關文字 對象
         let codeBlock = graph.getCellById(e.currentTarget.getAttribute('target-code-block'))

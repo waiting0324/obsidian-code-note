@@ -1,5 +1,5 @@
 import {ItemView, View, WorkspaceLeaf} from "obsidian";
-import {indexInit} from "./index";
+import {initGraph} from "./Graph";
 import {SOURCE_CODE_VIEW_TYPE} from "./main";
 
 export default class SourceCodeView extends ItemView {
@@ -26,7 +26,7 @@ export default class SourceCodeView extends ItemView {
 		div.id = 'container';
 		this.containerEl.children[1].appendChild(div);
 
-		indexInit(this.codeBlocks);
+		initGraph(this.codeBlocks);
 	}
 
 	async onClose() {

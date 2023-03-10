@@ -1,7 +1,7 @@
 import hljs from 'highlight.js';
-import { utils, CodeData } from './utils'
+import { Utils, CodeData } from './Utils'
 
-const myUtils = new utils()
+const myUtils = new Utils()
 
 class CodeBlockShape {
 

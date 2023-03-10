@@ -1,26 +1,34 @@
 import {Plugin, Workspace, WorkspaceLeaf} from 'obsidian';
-import SourceCodeView from "./source-code";
+import SourceCodeView from "./SourceCodeView";
 
 
 export const SOURCE_CODE_VIEW_TYPE = 'source-code-view'
-export default class MyPlugin extends Plugin {
+export default class SourceCodeViewPlugin extends Plugin {
 
-	sourceCodeView: SourceCodeView
+	// Obsidian 中 Markdown 的 代碼塊內容 集合
 	codeBlocks: string[] = []
 
+	/**
+	 * 載入插件時，註冊相關組件
+	 */
 	async onload() {
+
+		// 註冊 Obsidian 的 View
 		this.registerView(
 			SOURCE_CODE_VIEW_TYPE,
-			(leaf: WorkspaceLeaf) =>
-				(this.sourceCodeView = new SourceCodeView(this.codeBlocks, leaf))
+			(leaf: WorkspaceLeaf) => (new SourceCodeView(this.codeBlocks, leaf))
 		);
 
+		// 註冊 Obsidian 左側的按鈕
 		this.addRibbonIcon("dice", "Activate view", () => {
-			this.initCanvas()
+			this.initView()
 		});
 	}
 
-	initCanvas() {
+	/**
+	 * 初始化 Obsidian 的 View 頁面
+	 */
+	initView() {
 
 		// 當 ResourceCodeView 頁面已開啟，則返回
 		if (this.app.workspace.getLeavesOfType(SOURCE_CODE_VIEW_TYPE).length > 0) {

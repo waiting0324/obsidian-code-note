@@ -16,7 +16,7 @@ type CodeDataFuncCall = {
 
 export const CLASS_SHAPE_ID_TAG: string = "class-";
 export const CODE_BLOCK_ID_TAG: string = 'code-block-';
-class utils {
+class Utils {
 
     /**
      * 計算字串寬度
@@ -164,4 +164,4 @@ class utils {
 }
 
 
-export { utils, CodeData, CodeDataFunc }
+export { Utils, CodeData, CodeDataFunc }
