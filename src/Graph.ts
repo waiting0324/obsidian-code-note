@@ -57,8 +57,6 @@ export let initGraph = function (codeBlocks: String[]) {
 	// @ts-ignore
 	graph.on('toggle:codeBlock', ({e}) => {
 
-		console.dir(typeof e)
-
 		// 獲取 代碼塊圖形、開關文字 對象
 		let codeBlock = graph.getCellById(e.currentTarget.getAttribute('target-code-block'))
 		let toggleText = e.currentTarget.parentNode.childNodes[3].children[0]
