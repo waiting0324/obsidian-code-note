@@ -73,18 +73,29 @@ class Edge {
                     source: {
                         cell: myUtils.getClassShapeId(codeData.className, '', 'class'),
                         port: myUtils.getClassShapeId(codeData.className, func.name, 'function'),
-                        anchor: 'left'
+                        anchor: {
+							name: "left",
+							args: {
+								dy: 8
+							}
+						}
                     },
                     target: {
                         cell: myUtils.getClassShapeId(call.className, '', 'class'),
                         port: myUtils.getClassShapeId(call.className, call.functionName, 'function'),
-                        anchor: 'left'
+						anchor: {
+							name: "left",
+							args: {
+								dy: -8
+							}
+						}
                     },
                     router: {
-                        name: 'oneSide',
+                        name: 'manhattan',
                         args: {
-                            side: 'left',
-                            padding: 30
+							startDirections: ["left"],
+							endDirections: ["left"],
+							padding: 30
                         },
                     },
                     attrs: {

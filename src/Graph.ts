@@ -59,7 +59,7 @@ export let initGraph = function (codeBlocks: String[]) {
 
 		// 獲取 代碼塊圖形、開關文字 對象
 		let codeBlock = graph.getCellById(e.currentTarget.getAttribute('target-code-block'))
-		let toggleText = e.currentTarget.parentNode.childNodes[3].children[0]
+		let toggleText = e.currentTarget.parentNode.childNodes[5].children[0]
 
 		// 如果當前 代碼塊圖形 正在顯示，則關閉。反之則開啟
 		if (codeBlock.getProp().visible) {
