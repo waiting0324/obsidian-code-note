@@ -40,7 +40,6 @@ export default class SourceCodeViewPlugin extends Plugin {
 		if (activeFile == null) {
 			return;
 		}
-
 		// 處理文件內容
 		this.app.vault.process(activeFile, (data) => {
 
@@ -68,7 +67,6 @@ export default class SourceCodeViewPlugin extends Plugin {
 	}
 
 	onunload() {
-
 	}
 }
 

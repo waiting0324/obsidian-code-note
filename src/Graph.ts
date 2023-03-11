@@ -16,7 +16,6 @@ export let initGraph = function (codeBlocks: String[]) {
 		container: <HTMLElement>document.getElementById('container'),
 		width: 3000,
 		height: 5000,
-		autoResize: true,
 		background: {
 			color: '#ffffff', // 设置画布背景颜色
 		},
