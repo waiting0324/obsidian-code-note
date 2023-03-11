@@ -74,6 +74,7 @@ export let initGraph = function (codeBlocks: String[]) {
 			const posY = e.offsetY - (codeBlock.getProp().size.height / 2)
 			codeBlock.prop("position", {x: posX, y: posY})
 
+			// 顯示 代碼塊，並更新按鈕內容
 			codeBlock.show()
 			toggleText.textContent = '-'
 			toggleText.setAttribute('dy', '0.3em')

@@ -3,6 +3,11 @@ import {Utils} from './Utils'
 
 const myUtils = new Utils()
 
+// 類名稱區塊高度
+const classNameBoxHeight = 30;
+// 方法名稱區塊高度
+const funcNameBoxHeight = 40;
+
 /**
  * 註冊 類聲明 中 方法名稱位置 計算函數
  */
@@ -13,7 +18,7 @@ Graph.registerPortLayout(
 			return {
 				position: {
 					x: 0,
-					y: (index + 1) * elemBBox.height,
+					y: classNameBoxHeight + index * funcNameBoxHeight,
 				},
 				angle: 0,
 			}
@@ -142,8 +147,6 @@ class ClassShape {
 	 */
 	public createClassShape(className: string, funcNames: string[]) {
 
-		const height = 30
-
 		// 計算 類聲明 圖形寬度
 		let maxWidth = 100
 		maxWidth = Math.max(maxWidth, myUtils.getTextWidth(className, "14px bold") + 60)
@@ -157,7 +160,7 @@ class ClassShape {
 			"shape": 'clazz-shape',
 			"label": className,
 			"width": maxWidth,
-			"height": height,
+			"height": classNameBoxHeight,
 			"fontSize": 14,
 			"position": {
 				"x": 100,
@@ -178,7 +181,7 @@ class ClassShape {
 				"attrs": {
 					"func": {
 						width: maxWidth,
-						height: height + 10,
+						height: funcNameBoxHeight,
 					},
 					"funcName": {
 						ref: 'func',
