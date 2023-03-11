@@ -2,10 +2,9 @@
 	"id": "obsidian-code-note",
 	"name": "Source Code Note Plugin",
 	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"minAppVersion": "1.0.0",
+	"description": "This is a source code plugin for Obsidian. This plugin can help you organize source code note easily.",
+	"author": "Waiting",
+	"authorUrl": "https://github.com/waiting0324",
 	"isDesktopOnly": false
 }
