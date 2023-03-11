@@ -1,9 +1,9 @@
 {
 	"id": "obsidian-code-note",
-	"name": "Source Code Note Plugin",
+	"name": "Source Code Note",
 	"version": "1.0.0",
 	"minAppVersion": "1.0.0",
-	"description": "This is a source code plugin for Obsidian. This plugin can help you organize source code note easily.",
+	"description": "This plugin can help you organize source code note easily.",
 	"author": "Waiting",
 	"authorUrl": "https://github.com/waiting0324",
 	"isDesktopOnly": false

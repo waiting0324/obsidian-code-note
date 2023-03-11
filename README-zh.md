@@ -1,25 +1,25 @@
-# Obsidian Source Code Plugin
+# Obsidian 源碼筆記插件
 
-[中文文檔](./README-zh.md)
+[English Document](./README.md)
 
-Technical Support [AntV X6](https://x6.antv.antgroup.com/)
+技術支持 [AntV X6](https://x6.antv.antgroup.com/)
 
-## Functionality
+## 一、插件功能
 
-- Parse the code blocks in Obsidian notes, draw the graphs of the method call links, and keep the code blocks in the canvas for easy viewing
+- 解析 Obsidian 筆記中的代碼區塊，繪製成方法調用鏈路的圖形，並在畫布中保留代碼區塊，方便查看
 ![Demo](img/demo.gif)
 
-## How to use
+## 二、如何使用
 
-### 1. In the code comments section of Markdown's code block, write the relevant information with the keyword
+### 1. 在 Markdown 的 代碼區塊 的 代碼註釋 部分，通過 關鍵字 編寫相關信息
 
-| Supported keywords | Effect                          |
+| 支持的關鍵字 | 效果                          |
 | ------------ |-----------------------------|
-| @class       | Name of the class corresponding to the method                    |
-| @function    | Method Name                        |
-| @call        | Call the related method, multiple methods are supported. Format: class name @ method name |
+| @class       | 方法對應的類名稱                    |
+| @function    | 方法名稱                        |
+| @call        | 調用相關的方法，支持多個。格式: 類名稱 @ 方法名稱 |
 
-**Example**
+**範例**
 
 ```Java
 /** 
@@ -59,4 +59,5 @@ public void publish(final DataTypeParent data) {
     provider.onData(Collections.singleton(data));  
 }
 ```
-### 2. Click the button to the left of Obsidian to open the canvas
+
+### 2. 點擊 Obsidian 左側按鈕，打開畫布
