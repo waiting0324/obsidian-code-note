@@ -1,4 +1,5 @@
 import hljs from "highlight.js";
+import {CodeBlockContent} from "./CodeBlockShape";
 
 type CodeData = {
 	className: string, // 類名稱
@@ -6,8 +7,9 @@ type CodeData = {
 }
 
 type CodeDataFunc = {
+	language: string, // 程式語言
 	name: string, // 函數名稱
-	code: string  // 代碼塊字串
+	code: string,  // 代碼塊字串
 	calls: CodeDataFuncCall[] // 調用的函數集合
 }
 
@@ -56,17 +58,20 @@ class Utils {
 
 	/**
 	 * 根據 代碼塊字串 解析出 CodeData 對象
-	 * @param codeBlockText 代碼塊字串
 	 * @returns CodeData 對象
+	 * @param codeBlockContent 代碼塊內容
 	 */
-	public parseCodeData(codeBlockText: string): CodeData {
+	public parseCodeData(codeBlockContent: CodeBlockContent): CodeData {
+
+		const lang = codeBlockContent.language;
+		const content = codeBlockContent.code;
 
 		// 類名、方法名 的 標示符
 		const classTag = '@class'
 		const functionTag = '@function'
 		const callTag = '@call'
 
-		let codeLines = codeBlockText.split('\n')
+		let codeLines = content.split('\n')
 
 		// 取得 註釋塊 的代碼
 		let commentLines = []
@@ -119,8 +124,9 @@ class Utils {
 		let result: CodeData = {
 			className: className,
 			funcs: [{
+				language: lang,
 				name: functionName,
-				code: codeBlockText,
+				code: content,
 				calls: calls
 			}]
 		}

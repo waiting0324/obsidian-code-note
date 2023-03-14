@@ -1,12 +1,13 @@
 import {Plugin, Workspace, WorkspaceLeaf} from 'obsidian';
 import SourceCodeView from "./SourceCodeView";
+import {CodeBlockContent} from "./CodeBlockShape";
 
 
 export const SOURCE_CODE_VIEW_TYPE = 'source-code-view'
 export default class SourceCodeViewPlugin extends Plugin {
 
 	// Obsidian 中 Markdown 的 代碼塊內容 集合
-	codeBlocks: string[] = []
+	codeBlockContents: CodeBlockContent[] = []
 
 	/**
 	 * 載入插件時，註冊相關組件
@@ -16,7 +17,7 @@ export default class SourceCodeViewPlugin extends Plugin {
 		// 註冊 Obsidian 的 View
 		this.registerView(
 			SOURCE_CODE_VIEW_TYPE,
-			(leaf: WorkspaceLeaf) => (new SourceCodeView(this.codeBlocks, leaf))
+			(leaf: WorkspaceLeaf) => (new SourceCodeView(this.codeBlockContents, leaf))
 		);
 
 		// 註冊 Obsidian 左側的按鈕
@@ -44,20 +45,20 @@ export default class SourceCodeViewPlugin extends Plugin {
 		this.app.vault.process(activeFile, (data) => {
 
 			// 清理數據
-			this.codeBlocks = []
+			this.codeBlockContents = []
 
 			// 獲取文件內所有的 Markdown 代碼塊
 			const regex = /```(\w+)\s([\s\S]*?)```/gm;
 			let match;
 			while ((match = regex.exec(data)) !== null) {
 				const lang = match[1]; // 程式語言
-				const codeBlockData = match[2]; // 代碼塊內容
-				this.codeBlocks.push(codeBlockData)
+				const content = match[2]; // 代碼塊內容
+				this.codeBlockContents.push({language: lang, code: content})
 			}
 
 			// 開啟分頁
 			const preview = this.app.workspace.getLeaf('split', 'vertical')
-			const mmPreview = new SourceCodeView(this.codeBlocks, preview);
+			const mmPreview = new SourceCodeView(this.codeBlockContents, preview);
 			preview.open(mmPreview)
 
 			// 不更改文件內容

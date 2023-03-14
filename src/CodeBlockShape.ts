@@ -1,7 +1,12 @@
 import hljs from 'highlight.js';
-import {Utils, CodeData} from './Utils'
+import {CodeData, Utils} from './Utils'
 
 const myUtils = new Utils()
+
+type CodeBlockContent = {
+	language: string, // 程式語言
+	code: string // 具體代碼
+}
 
 class CodeBlockShape {
 
@@ -48,7 +53,7 @@ class CodeBlockShape {
 				},
 				html() {
 					const wrap = document.createElement('div')
-					wrap.innerHTML = '<pre style="padding-left: 20px">' + hljs.highlight(codeText, {language: 'java'}).value + '</pre>'
+					wrap.innerHTML = '<pre style="padding-left: 20px">' + hljs.highlight(codeText, {language: codeDataFunc.language}).value + '</pre>'
 					return wrap
 				},
 			}
@@ -62,5 +67,6 @@ class CodeBlockShape {
 
 }
 
+export {CodeBlockShape};
+export type {CodeBlockContent};
 
-export {CodeBlockShape}

@@ -1,5 +1,5 @@
 import {Cell, Graph, Shape} from '@antv/x6';
-import {CodeBlockShape} from './CodeBlockShape';
+import {CodeBlockContent, CodeBlockShape} from './CodeBlockShape';
 import {ClassShape} from './ClassShape';
 import {CLASS_SHAPE_ID_TAG, CODE_BLOCK_ID_TAG, CodeData, Utils} from './Utils';
 import {Edge} from './Edge'
@@ -9,7 +9,7 @@ const codeBlockShape = new CodeBlockShape()
 const classShape = new ClassShape()
 const edge = new Edge()
 
-export let initGraph = function (codeBlocks: String[]) {
+export let initGraph = function (codeBlocks: CodeBlockContent[]) {
 
 	// 創建畫布
 	const graph = new Graph({
@@ -27,7 +27,7 @@ export let initGraph = function (codeBlocks: String[]) {
 
 	// 將 代碼塊字串 集合 解析成 CodeData 對象集合，並將相同 className 的對象進行合併
 	let codeDatas: CodeData[] = []
-	codeBlocks.forEach((codeBlock: string) => {
+	codeBlocks.forEach((codeBlock: CodeBlockContent) => {
 		let codeData: CodeData = myUtils.parseCodeData(codeBlock)
 		codeDatas.push(codeData)
 	})
