@@ -6,7 +6,7 @@ import {CodeBlockContent} from "./CodeBlockShape";
 export default class SourceCodeView extends ItemView {
 
 	// 代碼塊內容 集合
-	codeBlocks: CodeBlockContent[]
+	codeBlocks: CodeBlockContent[];
 
 	constructor(codeBlocks: CodeBlockContent[], leaf: WorkspaceLeaf) {
 		super(leaf);
@@ -28,7 +28,7 @@ export default class SourceCodeView extends ItemView {
 		container.empty();
 
 		// 創建 AntV 需要的容器
-		const div = document.createElement("div")
+		const div = document.createElement("div");
 		div.id = 'container';
 		container.appendChild(div);
 

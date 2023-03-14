@@ -1,7 +1,7 @@
 import {Graph} from '@antv/x6';
-import {Utils} from './Utils'
+import {Utils} from './Utils';
 
-const myUtils = new Utils()
+const myUtils = new Utils();
 
 // 類名稱區塊高度
 const classNameBoxHeight = 30;
@@ -21,11 +21,11 @@ Graph.registerPortLayout(
 					y: classNameBoxHeight + index * funcNameBoxHeight,
 				},
 				angle: 0,
-			}
-		})
+			};
+		});
 	},
 	//true,
-)
+);
 
 /**
  * 類聲明 圖形定義
@@ -135,7 +135,7 @@ Graph.registerNode(
 		},
 	},
 	true,
-)
+);
 
 class ClassShape {
 
@@ -148,14 +148,14 @@ class ClassShape {
 	public createClassShape(className: string, funcNames: string[]) {
 
 		// 計算 類聲明 圖形寬度
-		let maxWidth = 100
-		maxWidth = Math.max(maxWidth, myUtils.getTextWidth(className, "14px bold") + 60)
+		let maxWidth = 100;
+		maxWidth = Math.max(maxWidth, myUtils.getTextWidth(className, "14px bold") + 60);
 		funcNames.forEach((funcName: string) => {
-			maxWidth = Math.max(maxWidth, myUtils.getTextWidth(funcName, "13px") + 20)
-		})
+			maxWidth = Math.max(maxWidth, myUtils.getTextWidth(funcName, "13px") + 20);
+		});
 
 		// 定義頂部類名稱方塊
-		let classShape = {
+		const classShape = {
 			"id": myUtils.getClassShapeId(className, '', 'class'),
 			"shape": 'clazz-shape',
 			"label": className,
@@ -167,15 +167,15 @@ class ClassShape {
 				"y": 100
 			},
 			"ports": [{}]
-		}
-		classShape.ports = []
+		};
+		classShape.ports = [];
 
 
 		// 定義下方函數名稱方塊
 		funcNames.forEach((funcName: string) => {
 
 			// 代碼塊 連接桩
-			let port = {
+			const port = {
 				"id": myUtils.getClassShapeId(className, funcName, 'function'),
 				"group": "list",
 				"attrs": {
@@ -215,12 +215,12 @@ class ClassShape {
 						targetCodeBlock: myUtils.getCodeBlockShapeId(className, funcName),
 					}
 				}
-			}
-			classShape.ports.push(port)
-		})
+			};
+			classShape.ports.push(port);
+		});
 
-		return classShape
+		return classShape;
 	}
 }
 
-export {ClassShape}
+export {ClassShape};

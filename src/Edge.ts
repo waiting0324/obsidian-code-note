@@ -1,7 +1,7 @@
 import { Shape } from '@antv/x6';
-import { CodeData, Utils } from './Utils'
+import { CodeData, Utils } from './Utils';
 
-const myUtils = new Utils()
+const myUtils = new Utils();
 
 class Edge {
 
@@ -12,7 +12,7 @@ class Edge {
      */
     public createFuncToCodeEdges(codeData: CodeData) {
 
-        let result = [];
+        const result = [];
 
         // 遍歷所有的 函數對象，替每個 函數 與 代碼塊圖形 創建 連線對象
         for (const func of codeData.funcs) {
@@ -44,10 +44,10 @@ class Edge {
                         },
                     },
                 },
-            })
+            });
 
             // 將 連線對象 加入到 返回結果 中
-            result.push(edge)
+            result.push(edge);
         }
 
         return result;
@@ -60,7 +60,7 @@ class Edge {
      */
     public createFuncCallEdges(codeData: CodeData) {
 
-        let result = [];
+        const result = [];
 
         // 遍歷 CodeData 中的每個 函數對象
         for (const func of codeData.funcs) {
@@ -103,10 +103,10 @@ class Edge {
                             stroke: "#2bb37b",
                         },
                     },
-                })
+                });
 
                 // 將 連線對象 加入到 返回結果 中
-                result.push(edge)
+                result.push(edge);
             }
         }
 
@@ -115,4 +115,4 @@ class Edge {
 
 }
 
-export { Edge }
+export { Edge };
