@@ -1,4 +1,4 @@
-# Obsidian Source Code Plugin
+# Obsidian Source Code Note Plugin
 
 [中文文檔](./README-zh.md)
 
