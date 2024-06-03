@@ -25,14 +25,18 @@ export const initGraph = function (codeBlocks: CodeBlockContent[]) {
 		},
 	});
 
-	// 將 代碼塊字串 集合 解析成 CodeData 對象集合，並將相同 className 的對象進行合併
+	// 將 代碼塊字串 集合 解析成 CodeData 對象集合
 	let codeDatas: CodeData[] = [];
 	codeBlocks.forEach((codeBlock: CodeBlockContent) => {
 		const codeData: CodeData = myUtils.parseCodeData(codeBlock);
 		codeDatas.push(codeData);
 	});
+
+	// 將相同 className 的對象進行合併
 	codeDatas = myUtils.mergeCodeDatas(codeDatas);
 
+	// 設置 CodeDataFunc 中的 calleds 屬性
+	myUtils.setCalleds(codeDatas);
 
 	// 將 CodeData 對象列表 繪製成 類圖形、代碼塊圖形
 	for (const codeData of codeDatas) {

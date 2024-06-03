@@ -30,110 +30,124 @@ Graph.registerPortLayout(
 /**
  * 類聲明 圖形定義
  */
-Graph.registerNode(
-	'clazz-shape',
-	{
-		// 最上層 class 名稱
-		inherit: 'rect',
-		markup: [
-			{
-				tagName: 'rect',
-				selector: 'body',
-			},
-			{
-				tagName: 'text',
-				selector: 'label',
-			},
-		],
-		attrs: {
-			rect: {
-				strokeWidth: 1,
-				stroke: '#e5885c',
-				fill: '#fd9a6c',
-			},
-			label: {
-				fontWeight: 'bold',
-				fill: '#ffffff',
-				fontSize: 14,
-				textAnchor: 'middle',
-				textVerticalAnchor: 'middle'
-			},
+let clazzShapeDef = {
+	// 最上層 class 名稱
+	inherit: 'rect',
+	markup: [
+		{
+			tagName: 'rect',
+			selector: 'body',
 		},
-		// 該 class 所屬的方法列表
-		ports: {
-			groups: {
-				list: {
-					position: 'classFuncPosition',
-					markup: [
-						{
-							tagName: 'rect',
-							selector: 'func',
-						},
-						{
-							tagName: 'text',
-							selector: 'funcName',
-						},
-						{
-							tagName: 'circle',
-							selector: 'funcInCircle'
-						},
-						{
-							tagName: 'circle',
-							selector: 'funcOutCircle'
-						},
-						{
-							tagName: 'circle',
-							selector: 'toggle'
-						},
-						{
-							tagName: 'text',
-							selector: 'toggleText'
-						}
-					],
-					attrs: {
-						func: {
-							strokeWidth: 1,
-							stroke: '#e5885c',
-							fill: '#FFFFFF',
-						},
-						funcName: {
-							fontSize: 13,
-							textAnchor: 'middle',
-							textVerticalAnchor: 'middle'
-						},
-						funcInCircle: {
-							r: 5,
-							stroke: '#efab7c',
-							strokeWidth: 1,
-							fill: '#fff'
-						},
-						funcOutCircle: {
-							r: 5,
-							stroke: '#efab7c',
-							strokeWidth: 1,
-							fill: '#fff'
-						},
-						toggle: {
-							r: 7,
-							stroke: '#b2bec3',
-							strokeWidth: 2,
-							fill: '#fff',
-							cursor: 'pointer',
-						},
-						toggleText: {
-							fontSize: 12,
-							fontWeight: 800,
-							fill: '#b2bec3',
-							textAnchor: 'middle',
-							textVerticalAnchor: 'middle',
-							'pointer-events': 'none', // 避免按鈕不靈敏
-							cursor: 'pointer',
-						}
+		{
+			tagName: 'text',
+			selector: 'label',
+		},
+	],
+	attrs: {
+		rect: {
+			strokeWidth: 1,
+			stroke: '#e5885c',
+			fill: '#fd9a6c',
+		},
+		label: {
+			fontWeight: 'bold',
+			fill: '#ffffff',
+			fontSize: 14,
+			textAnchor: 'middle',
+			textVerticalAnchor: 'middle'
+		},
+	},
+	// 該 class 所屬的方法列表
+	ports: {
+		groups: {
+			list: {
+				position: 'classFuncPosition',
+				markup: [
+					{
+						tagName: 'rect',
+						selector: 'func',
 					},
+					{
+						tagName: 'text',
+						selector: 'funcName',
+					},
+					{
+						tagName: 'circle',
+						selector: 'funcInCircle'
+					},
+					// {
+					// 	tagName: 'circle',
+					// 	selector: 'funcOutCircle'
+					// },
+					{
+						tagName: 'circle',
+						selector: 'toggle'
+					},
+					{
+						tagName: 'text',
+						selector: 'toggleText'
+					}
+				],
+				attrs: {
+					
+					func: {
+						strokeWidth: 1,
+						stroke: '#e5885c',
+						fill: '#FFFFFF',
+					},
+					funcName: {
+						fontSize: 13,
+						textAnchor: 'middle',
+						textVerticalAnchor: 'middle'
+					},
+					funcInCircle: {
+						r: 5,
+						stroke: '#efab7c',
+						strokeWidth: 1,
+						fill: '#fff'
+					},
+					// funcOutCircle: {
+					// 	r: 5,
+					// 	stroke: '#efab7c',
+					// 	strokeWidth: 1,
+					// 	fill: '#fff'
+					// },
+					toggle: {
+						r: 7,
+						stroke: '#b2bec3',
+						strokeWidth: 2,
+						fill: '#fff',
+						cursor: 'pointer',
+					},
+					toggleText: {
+						fontSize: 12,
+						fontWeight: 800,
+						fill: '#b2bec3',
+						textAnchor: 'middle',
+						textVerticalAnchor: 'middle',
+						'pointer-events': 'none', // 避免按鈕不靈敏
+						cursor: 'pointer',
+					}
 				},
 			},
 		},
 	},
+};
+clazzShapeDef.ports.groups.list.markup.push( {
+	tagName: 'circle',
+	selector: 'funcOutCircle'
+});
+clazzShapeDef.ports.groups.list.attrs.funcOutCircle = {
+	r: 5,
+	stroke: '#efab7c',
+	strokeWidth: 1,
+	fill: '#fff'
+}
+
+
+Graph.registerNode(
+	'clazz-shape',
+	clazzShapeDef,
 	true,
 );
 
@@ -169,7 +183,6 @@ class ClassShape {
 			"ports": [{}]
 		};
 		classShape.ports = [];
-
 
 		// 定義下方函數名稱方塊
 		funcNames.forEach((funcName: string) => {

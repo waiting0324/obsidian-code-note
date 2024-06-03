@@ -1,5 +1,5 @@
 import hljs from "highlight.js";
-import {CodeBlockContent} from "./CodeBlockShape";
+import { CodeBlockContent } from "./CodeBlockShape";
 
 type CodeData = {
 	className: string, // 類名稱
@@ -10,7 +10,8 @@ type CodeDataFunc = {
 	language: string, // 程式語言
 	name: string, // 函數名稱
 	code: string,  // 代碼塊字串
-	calls: CodeDataFuncCall[] // 調用的函數集合
+	calls: CodeDataFuncCall[], // 調用的函數集合
+	calleds: CodeDataFuncCall[], // 被調用的函數集合
 };
 
 type CodeDataFuncCall = {
@@ -20,6 +21,9 @@ type CodeDataFuncCall = {
 
 export const CLASS_SHAPE_ID_TAG = "class-";
 export const CODE_BLOCK_ID_TAG = 'code-block-';
+
+// Key: 函數的唯一標示符，Value: 函數對象
+const funcNameToFunc = new Map<string, CodeDataFunc>();
 
 class Utils {
 
@@ -44,7 +48,7 @@ class Utils {
 
 		// 創建一個新容器，將 HTML 代碼加入到容器中
 		const node = document.createElement('div');
-		node.innerHTML = '<pre style="padding-left: 20px">' + hljs.highlight(codeText, {language: 'java'}).value + '</pre>';
+		node.innerHTML = '<pre style="padding-left: 20px">' + hljs.highlight(codeText, { language: 'java' }).value + '</pre>';
 		document.body.appendChild(node);
 
 		// 計算 容器高度
@@ -94,8 +98,15 @@ class Utils {
 
 		// 從 註釋塊 中獲取 類名、方法名、調用的函數集合
 		let className = '';
-		let functionName = '';
 		const calls: CodeDataFuncCall[] = [];
+		const calleds: CodeDataFuncCall[] = [];
+		let codeDataFunc = {
+			language: lang,
+			name: '',
+			code: content,
+			calls: calls,
+			calleds: calleds
+		};
 
 		commentLines.forEach((comment) => {
 
@@ -106,16 +117,20 @@ class Utils {
 
 			// 獲取 方法名
 			if (comment.indexOf(functionTag) != -1) {
-				functionName = comment.substring(comment.indexOf(functionTag) + functionTag.length).trim();
+				codeDataFunc.name = comment.substring(comment.indexOf(functionTag) + functionTag.length).trim();
+
+				// 保存 到 共用 Map 中
+				funcNameToFunc.set(this.getClassShapeId(className, codeDataFunc.name, 'function'), codeDataFunc);
 			}
 
 			// 獲取 調用的函數
 			if (comment.indexOf(callTag) != -1) {
 				const callStr = comment.substring(comment.indexOf(callTag) + callTag.length).trim();
-				calls.push({
+				const call = {
 					className: callStr.substring(0, callStr.indexOf('@')).trim(),
 					functionName: callStr.substring(callStr.indexOf('@') + 1).trim()
-				});
+				}
+				calls.push(call);
 			}
 
 		});
@@ -123,12 +138,7 @@ class Utils {
 		// 封裝結果
 		const result: CodeData = {
 			className: className,
-			funcs: [{
-				language: lang,
-				name: functionName,
-				code: content,
-				calls: calls
-			}]
+			funcs: [codeDataFunc]
 		};
 
 		return result;
@@ -190,9 +200,33 @@ class Utils {
 
 		return result;
 	}
+
+	/**
+	 * 設置所有 CodeData 中的 CodeDataFunc 的 calleds 屬性
+	 * @param codeDatas 要進行處理的 CodeData 集合
+	 */
+	public setCalleds(codeDatas: CodeData[]) {
+
+		// 遍歷 呼叫函數 的 對象屬性
+		for (const codeData of codeDatas) {
+			for (const codeDataFunc of codeData.funcs) {
+				for (const call of codeDataFunc.calls) {
+
+					// 取得 被調用的 函數對象
+					let calledCodeDataFunc: CodeDataFunc | undefined = funcNameToFunc.get(this.getClassShapeId(call.className, call.functionName, 'function'));
+					
+					// 將 呼叫函數對象的屬性 加入到 被調用的函數對象 的 被調用函數集合 中
+					calledCodeDataFunc?.calleds.push({
+						className: codeDataFunc.name,
+						functionName: codeData.className
+					});
+				}
+			}
+		}
+	}
 }
 
 
-export {Utils};
-export type {CodeData, CodeDataFunc};
+export { Utils };
+export type { CodeData, CodeDataFunc };
 
